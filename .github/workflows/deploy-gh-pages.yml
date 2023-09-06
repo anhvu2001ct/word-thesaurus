@@ -1,24 +1,26 @@
-name: Build and Deploy
+name: Deploy - Github Pages
+concurrency: DeployGithubPages
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18]
-    concurrency: deploy_github-pages
+        pnpm-version: [8]
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup pnpm
+      - name: Setup pnpm ${{ matrix.pnpm-version }}
         uses: pnpm/action-setup@v2
         with:
-          version: 8
+          version: ${{ matrix.pnpm-version }}
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
