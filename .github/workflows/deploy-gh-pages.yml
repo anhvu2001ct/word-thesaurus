@@ -1,0 +1,39 @@
+name: Build and Deploy
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18]
+    concurrency: ci-${{ github.ref }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+
+      - name: Install and Build
+        run: |
+          pnpm i
+          pnpm build
+
+      - name: Deploy to Github Pages
+        uses: JamesIves/github-pages-deploy-action@v4.4.3
+        with:
+          folder: dist
+          branch: gh-pages
+          
