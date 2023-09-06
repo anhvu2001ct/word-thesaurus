@@ -27,6 +27,11 @@ jobs:
           cache: pnpm
 
       - run: pnpm i
+
+      - name: Type checking and linting
+        run: |
+          pnpm type-check
+          pnpm lint
       - run: pnpm build
 
       - name: Deploy to Github Pages
