@@ -1,7 +1,7 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    titleClass: string;
+    titleClass?: string;
     title: string;
     data: string[];
   }>(),
