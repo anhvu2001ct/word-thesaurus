@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { InputStatus } from "@/types";
-import { ref, watchEffect } from "vue";
 
 withDefaults(
   defineProps<{

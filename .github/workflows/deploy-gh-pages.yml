@@ -9,7 +9,7 @@ jobs:
     strategy:
       matrix:
         node-version: [18]
-    concurrency: ci-${{ github.ref }}
+    concurrency: deploy_github-pages
 
     steps:
       - name: Checkout
