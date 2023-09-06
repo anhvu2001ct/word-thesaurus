@@ -17,7 +17,7 @@ function onWordClick(word: string) {
 
 <template>
   <div
-    class="row q-ma-md q-gutter-md justify-center items-start full-width"
+    class="card-container row q-ma-md justify-center items-start full-width"
     style="max-width: 1200px"
   >
     <DisplayResultContent :data="$props.synonyms" title="Synonyms" @word-clicked="onWordClick" />
@@ -29,3 +29,9 @@ function onWordClick(word: string) {
     />
   </div>
 </template>
+
+<style scoped>
+.card-container {
+  gap: 1.25rem;
+}
+</style>
