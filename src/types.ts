@@ -1,6 +1,6 @@
 export type APIResult = {
-  synonyms: string[]
-  antonyms: string[]
-}
+  synonyms: string[];
+  antonyms: string[];
+};
 
-export type InputStatus = "ok" | "loading" | "error"
+export type FetchStatus = "ok" | "loading" | "error";

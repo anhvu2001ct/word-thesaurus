@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import useInputStore from "@/composables/stores/useInputStore";
+
 withDefaults(
   defineProps<{
     titleClass?: string;
@@ -10,9 +12,11 @@ withDefaults(
   }
 );
 
-defineEmits<{
-  wordClicked: [word: string];
-}>();
+const store = useInputStore();
+
+function wordClicked(word: string) {
+  store.wordInput = word;
+}
 </script>
 
 <template>
@@ -22,26 +26,19 @@ defineEmits<{
     </QCardSection>
 
     <QSeparator />
-
     <QScrollArea style="height: 32vh">
-      <QList class="row">
-        <TransitionGroup
-          name="list"
-          enter-active-class="animate__animated animate__fadeInLeft"
-          leave-active-class="animate__animated animate__fadeOutRight"
+      <QList v-auto-animate="{ duration: 200 }" class="row">
+        <QItem
+          v-for="word in $props.data"
+          :key="word"
+          v-ripple
+          class="col-6 col-md-4 flex flex-center"
+          clickable
+          @click="wordClicked(word)"
         >
-          <QItem
-            v-for="word in $props.data"
-            :key="word"
-            v-ripple
-            class="col-6 col-md-4 flex flex-center"
-            clickable
-            @click="$emit('wordClicked', word)"
-          >
-            {{ word }}
-            <QTooltip :delay="200" class="bg-secondary">Try this word</QTooltip>
-          </QItem>
-        </TransitionGroup>
+          {{ word }}
+          <QTooltip :delay="200" class="bg-secondary">Try this word</QTooltip>
+        </QItem>
       </QList>
     </QScrollArea>
   </QCard>

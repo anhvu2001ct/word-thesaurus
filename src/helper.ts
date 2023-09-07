@@ -23,5 +23,11 @@ export async function fetchData(word: string, signal: AbortSignal) {
     throw new Error(`Network error, Status=${resp.status}`);
   }
 
-  return (await resp.json()) as APIResult;
+  let res = (await resp.json()) as APIResult;
+  res = {
+    synonyms: [...new Set(res.synonyms)],
+    antonyms: [...new Set(res.synonyms)]
+  };
+
+  return res;
 }

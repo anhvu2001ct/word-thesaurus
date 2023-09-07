@@ -1,37 +1,22 @@
 <script setup lang="ts">
-import type { InputStatus } from "@/types";
+import useInputStore from "@/composables/stores/useInputStore";
 
-withDefaults(
-  defineProps<{
-    state?: InputStatus;
-    word: string;
-    search: string;
-  }>(),
-  {
-    state: "ok"
-  }
-);
-
-defineEmits<{
-  "update:word": [newWord: string];
-  "update:search": [newSearch: string];
-}>();
+const store = useInputStore();
 </script>
 
 <template>
   <div class="row flex-center full-width" style="max-width: 1000px">
     <QInput
+      v-model="store.wordInput"
       class="col-10 col-sm-4"
-      :model-value="$props.word"
       :debounce="250"
-      :loading="$props.state === 'loading'"
-      :error="$props.state === 'error'"
+      :loading="store.fetchStatus === 'loading'"
+      :error="store.fetchStatus === 'error'"
       error-message="Cannot retrieve data"
       label="Enter a word"
       placeholder="nice"
       filled
       clearable
-      @update:model-value="(word) => $emit('update:word', word ?? '')"
     >
       <template #prepend>
         <QIcon name="o_send" />
@@ -39,14 +24,13 @@ defineEmits<{
     </QInput>
 
     <QInput
+      v-model="store.searchInput"
       class="col-10 col-sm-4"
-      :model-value="$props.search"
       :debounce="100"
       :error="false"
       label="Search..."
       outlined
       clearable
-      @update:model-value="(search) => $emit('update:search', search ?? '')"
     >
       <template #append>
         <QIcon name="o_search" />

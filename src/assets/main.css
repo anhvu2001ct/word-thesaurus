@@ -1,17 +1,7 @@
-:root {
-  --animate-duration: 500ms;
-}
+/* :root {
+
+} */
 
 body {
   transition: background 300ms ease;
-}
-
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all var(--animate-duration) ease;
-}
-
-.list-leave-active {
-  position: absolute !important;
 }

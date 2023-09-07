@@ -6,7 +6,7 @@ import { quasar, transformAssetUrls } from "@quasar/vite-plugin";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env?.NODE_ENV === "development" ? "/" : "/word-thesaurus",
+  base: process.env?.GITHUB_ACTIONS ? "/word-thesaurus" : "/",
   plugins: [
     vue({
       template: { transformAssetUrls }

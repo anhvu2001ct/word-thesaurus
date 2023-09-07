@@ -11,10 +11,13 @@ import "./assets/main.css";
 
 import App from "./App.vue";
 import { getTheme } from "./helper";
+import { autoAnimatePlugin } from "@formkit/auto-animate/vue";
+import { createPinia } from "pinia";
 
 const theme = getTheme();
 
 createApp(App)
+  .use(createPinia())
   .use(Quasar, {
     plugins: {},
     iconSet,
@@ -26,4 +29,5 @@ createApp(App)
       }
     }
   })
+  .use(autoAnimatePlugin)
   .mount("#app");
