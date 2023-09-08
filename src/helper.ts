@@ -26,7 +26,7 @@ export async function fetchData(word: string, signal: AbortSignal) {
   let res = (await resp.json()) as APIResult;
   res = {
     synonyms: [...new Set(res.synonyms)],
-    antonyms: [...new Set(res.synonyms)]
+    antonyms: [...new Set(res.antonyms)]
   };
 
   return res;
